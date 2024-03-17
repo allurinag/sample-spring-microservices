@@ -1,4 +1,15 @@
-cd account-services
-mvn clean install
-docker build -t dockerhub/reponame .
-sudo docker push dockerhub/reponame
+pipeline {
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+    }
+}
